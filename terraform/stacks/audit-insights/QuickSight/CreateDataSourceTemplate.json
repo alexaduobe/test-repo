@@ -1,0 +1,14 @@
+{
+    "AwsAccountId": "${account_id}",
+    "DataSourceId": "${datasource_id}",
+    "Name": "Log Archive Data Source",
+    "Type": "ATHENA",
+    "DataSourceParameters": {
+        "AthenaParameters": {
+            "WorkGroup": "primary"
+        }
+	},
+    "SslProperties": {
+        "DisableSsl": false
+    }
+}

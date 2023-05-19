@@ -1,0 +1,19 @@
+{
+  "detail-type": "AWS Service Event via CloudTrail",
+  "source": "aws.controltower",
+  "account": "<<MGMT_ACCOUNT_ID>>",
+  "detail": {
+    "eventSource": "controltower.amazonaws.com",
+    "eventName": "CreateManagedAccount",
+    "recipientAccountId": "<<TEST_ACCOUNT_ID>>",
+    "serviceEventDetails": {
+      "createManagedAccountStatus": {
+        "account": {
+          "accountName": "SampleAccount",
+          "accountId": "<<MGMT_ACCOUNT_ID>>"
+        },
+        "state": "SUCCEEDED"
+      }
+    }
+  }
+}

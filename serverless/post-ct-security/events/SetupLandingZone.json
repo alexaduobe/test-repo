@@ -1,0 +1,55 @@
+{
+  "version": "0",
+  "id": "9FC58F1C-F645-4DEF-9B03-50D792806A40",
+  "detail-type": "AWS Service Event via CloudTrail",
+  "source": "aws.controltower",
+  "account": "XXXXXXXXXXXX",
+  "time": "2022-01-04T20:42:18Z",
+  "region": "us-east-2",
+  "resources": [],
+  "detail": {
+    "eventVersion": "1.05",
+    "userIdentity": {
+      "accountId": "XXXXXXXXXXXX",
+      "invokedBy": "AWS Internal"
+    },
+    "eventTime": "2022-01-04T20:42:18Z",
+    "eventSource": "controltower.amazonaws.com",
+    "eventName": "SetupLandingZone",
+    "awsRegion": "us-east-2",
+    "sourceIPAddress": "AWS Internal",
+    "userAgent": "AWS Internal",
+    "eventID": "CloudTrail_event_ID",
+    "readOnly": false,
+    "eventType": "AwsServiceEvent",
+    "serviceEventDetails": {
+      "setupLandingZoneStatus": {
+        "state": "SUCCEEDED",
+        "message": "AWS Control Tower successfully set up a new landing zone.",
+        "rootOrganizationalId": "r-lum0",
+        "organizationalUnits": [
+          {
+            "organizationalUnitName": "Governance",
+            "organizationalUnitId": "ou-lum0-lwnbb5ok"
+          },
+          {
+            "organizationalUnitName": "Sandboxes",
+            "organizationalUnitId": "ou-lum0-uglobnhn"
+          }
+        ],
+        "accounts": [
+          {
+            "accountName": "Audit",
+            "accountId": "XXXXXXXXXXXX"
+          },
+          {
+            "accountName": "Log Archive",
+            "accountId": "XXXXXXXXXXXX"
+          }
+        ],
+        "requestedTimestamp": "2022-01-04T20:42:18Z",
+        "completedTimestamp": "2022-01-04T20:42:18Z"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+    "AwsAccountId": "${account_id}" ,
+    "DataSetId": "${dataset_id}",
+    "Name": "Log Archive Top Ten Services",
+	"PhysicalTableMap": {
+		"9e32cf94-1a5e-4363-b434-d4e164a6cb62": {
+			"CustomSql": {
+				"DataSourceArn": "arn:aws:quicksight:us-east-2:${account_id}:datasource/${datasource_id}",
+				"Name": "Log Archive Services",
+				"SqlQuery": "SELECT eventsource, COUNT(*) as EventCount FROM \"logarchive\".\"cloudtrail\" \r\nWHERE eventtime LIKE CONCAT('%', date_format(current_timestamp, '%Y_%m'), '%') \r\nGROUP BY eventsource\r\nORDER BY EventCount DESC\r\nLIMIT 10",
+				"Columns": [
+					{
+						"Name": "eventsource",
+						"Type": "STRING"
+					},
+					{
+						"Name": "EventCount",
+						"Type": "INTEGER"
+					}
+				]
+			}
+		}
+	},
+	"LogicalTableMap": {
+		"9e32cf94-1a5e-4363-b434-d4e164a6cb62": {
+			"Alias": "Log Archive Services",
+			"DataTransforms": [
+				{
+					"ProjectOperation": {
+						"ProjectedColumns": [
+							"eventsource",
+							"EventCount"
+						]
+					}
+				}
+			],
+			"Source": {
+				"PhysicalTableId": "9e32cf94-1a5e-4363-b434-d4e164a6cb62"
+			}
+		}
+	},
+	"Permissions": [
+        {
+            "Principal": "${principal}",
+            "Actions": [
+                "quicksight:UpdateDataSetPermissions",
+                "quicksight:DescribeDataSet",
+                "quicksight:DescribeDataSetPermissions",
+                "quicksight:PassDataSet",
+                "quicksight:DescribeIngestion",
+                "quicksight:ListIngestions",
+                "quicksight:UpdateDataSet",
+                "quicksight:DeleteDataSet",
+                "quicksight:CreateIngestion",
+                "quicksight:CancelIngestion"
+            ]
+        }
+    ],
+    "ImportMode": "DIRECT_QUERY",
+	"DataSetUsageConfiguration": {
+            "DisableUseAsDirectQuerySource": false,
+            "DisableUseAsImportedSource": false
+    }
+}

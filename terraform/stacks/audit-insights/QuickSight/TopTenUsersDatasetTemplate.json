@@ -1,0 +1,64 @@
+{
+    "AwsAccountId": "${account_id}" ,
+    "DataSetId": "${dataset_id}",
+    "Name": "Log Archive Top Ten Users",
+	"PhysicalTableMap": {
+		"0d2fdfc0-8929-4ff5-a7c8-890bf627ec90": {
+			"CustomSql": {
+				"DataSourceArn": "arn:aws:quicksight:us-east-2:${account_id}:datasource/${datasource_id}",
+				"Name": "Log Archive Users",
+				"SqlQuery": "SELECT useridentity.username, COUNT(*) as IdentityCount FROM \"logarchive\".\"cloudtrail\" \r\nWHERE eventtime LIKE CONCAT('%', date_format(current_timestamp, '%Y_%m'), '%') \r\nGROUP BY useridentity.username\r\nORDER BY IdentityCount DESC\r\nLIMIT 10",
+				"Columns": [
+					{
+						"Name": "username",
+						"Type": "STRING"
+					},
+					{
+						"Name": "IdentityCount",
+						"Type": "INTEGER"
+					}
+				]
+			}
+		}
+	},
+	"LogicalTableMap": {
+		"0d2fdfc0-8929-4ff5-a7c8-890bf627ec90": {
+			"Alias": "Log Archive Users",
+			"DataTransforms": [
+				{
+					"ProjectOperation": {
+						"ProjectedColumns": [
+							"username",
+							"IdentityCount"
+						]
+					}
+				}
+			],
+			"Source": {
+				"PhysicalTableId": "0d2fdfc0-8929-4ff5-a7c8-890bf627ec90"
+			}
+		}
+	},
+	"Permissions": [
+        {
+            "Principal": "${principal}",
+            "Actions": [
+                "quicksight:UpdateDataSetPermissions",
+                "quicksight:DescribeDataSet",
+                "quicksight:DescribeDataSetPermissions",
+                "quicksight:PassDataSet",
+                "quicksight:DescribeIngestion",
+                "quicksight:ListIngestions",
+                "quicksight:UpdateDataSet",
+                "quicksight:DeleteDataSet",
+                "quicksight:CreateIngestion",
+                "quicksight:CancelIngestion"
+            ]
+        }
+    ],
+    "ImportMode": "DIRECT_QUERY",
+	"DataSetUsageConfiguration": {
+            "DisableUseAsDirectQuerySource": false,
+            "DisableUseAsImportedSource": false
+    }
+}

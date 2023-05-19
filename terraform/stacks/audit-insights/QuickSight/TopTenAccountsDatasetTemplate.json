@@ -1,0 +1,64 @@
+{
+    "AwsAccountId": "${account_id}" ,
+    "DataSetId": "${dataset_id}",
+    "Name": "Log Archive Top Ten Accounts",
+	"PhysicalTableMap": {
+		"752d5d24-53b6-4fbe-bd66-810bde8cb851": {
+			"CustomSql": {
+				"DataSourceArn": "arn:aws:quicksight:us-east-2:${account_id}:datasource/${datasource_id}",
+				"Name": "New custom SQL",
+				"SqlQuery": "SELECT recipientaccountid, COUNT(*) as AccCount FROM \"logarchive\".\"cloudtrail\" \r\nWHERE eventtime LIKE CONCAT('%', date_format(current_timestamp, '%Y_%m'), '%') \r\nGROUP BY recipientaccountid\r\nORDER BY AccCount DESC\r\nLIMIT 10",
+				"Columns": [
+					{
+						"Name": "recipientaccountid",
+						"Type": "STRING"
+					},
+					{
+						"Name": "AccCount",
+						"Type": "INTEGER"
+					}
+				]
+			}
+		}
+	},
+	"LogicalTableMap": {
+		"752d5d24-53b6-4fbe-bd66-810bde8cb851": {
+			"Alias": "New custom SQL",
+			"DataTransforms": [
+				{
+					"ProjectOperation": {
+						"ProjectedColumns": [
+							"recipientaccountid",
+							"AccCount"
+						]
+					}
+				}
+			],
+			"Source": {
+				"PhysicalTableId": "752d5d24-53b6-4fbe-bd66-810bde8cb851"
+			}
+		}
+	},
+	"Permissions": [
+        {
+            "Principal": "${principal}",
+            "Actions": [
+                "quicksight:UpdateDataSetPermissions",
+                "quicksight:DescribeDataSet",
+                "quicksight:DescribeDataSetPermissions",
+                "quicksight:PassDataSet",
+                "quicksight:DescribeIngestion",
+                "quicksight:ListIngestions",
+                "quicksight:UpdateDataSet",
+                "quicksight:DeleteDataSet",
+                "quicksight:CreateIngestion",
+                "quicksight:CancelIngestion"
+            ]
+        }
+    ],
+    "ImportMode": "DIRECT_QUERY",
+	"DataSetUsageConfiguration": {
+            "DisableUseAsDirectQuerySource": false,
+            "DisableUseAsImportedSource": false
+    }
+}

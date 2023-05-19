@@ -1,0 +1,29 @@
+{
+    "AwsAccountId": "${account_id}",
+    "TemplateId": "log_archive_dashboard_template",
+    "Name": "Log Archive Dashboard Template",
+    "SourceEntity": {
+        "SourceAnalysis": {
+            "Arn": "arn:aws:quicksight:us-east-2:${account_id}:analysis/${analysis_id}",
+            "DataSetReferences": [
+                {
+                    "DataSetPlaceholder": "Users",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_users}"
+                },
+				{
+                    "DataSetPlaceholder": "Services",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_services}"
+                },
+				{
+                    "DataSetPlaceholder": "Api Requests",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_api_requests}"
+                },
+				{
+                    "DataSetPlaceholder": "Accounts",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_accounts}"
+                }
+            ]
+        }
+    },
+    "VersionDescription": "1"
+}

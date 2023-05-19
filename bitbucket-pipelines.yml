@@ -1,0 +1,57 @@
+image: hashicorp/terraform:1.1.4
+
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: Test
+            script:
+              - cd terraform/stacks/pre-controltower
+              - terraform --version
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../public-ecr
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../accountfactory-for-terraform
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../opsdev-deploy-ous
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../sandbox-ous
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../suspend_ou
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../workloads-ous
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../guardrails
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../network-acct-base
+              - terraform fmt -check
+              - cd ../dns-base
+              - terraform fmt -check
+              - terraform init
+              - terraform validate
+              - cd ../audit-bootstrap
+              - terraform fmt -check
+              - cd ../audit-insights
+              - terraform fmt -check
+        - step:
+            name: Security Scan
+            script:
+              # Run a security scan for sensitive data.
+              # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+              - pipe: atlassian/git-secrets-scan:0.5.1

@@ -1,0 +1,55 @@
+{
+    "AwsAccountId": "${account_id}",
+    "DashboardId": "LogArchiveDashboardTest",
+    "Name": "Log Archive Dashboard Test",
+    "Permissions": [
+        {
+            "Principal": "${principal}",
+            "Actions": [
+                "quicksight:DescribeDashboard",
+                "quicksight:ListDashboardVersions",
+                "quicksight:UpdateDashboardPermissions",
+                "quicksight:QueryDashboard",
+                "quicksight:UpdateDashboard",
+                "quicksight:DeleteDashboard",
+                "quicksight:DescribeDashboardPermissions",
+                "quicksight:UpdateDashboardPublishedVersion"
+            ]
+        }
+    ],
+    "SourceEntity": {
+        "SourceTemplate": {
+            "DataSetReferences": [
+                {
+                    "DataSetPlaceholder": "Users",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_users}"
+                },
+				{
+                    "DataSetPlaceholder": "Services",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_services}"
+                },
+				{
+                    "DataSetPlaceholder": "Api Requests",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_api_requests}"
+                },
+				{
+                    "DataSetPlaceholder": "Accounts",
+                    "DataSetArn": "arn:aws:quicksight:us-east-2:${account_id}:dataset/${dataset_id_accounts}"
+                }
+            ],
+            "Arn": "arn:aws:quicksight:us-east-2:358557491831:template/log_archive_dashboard_template"
+        }
+    },
+    "VersionDescription": "1",
+	"DashboardPublishOptions": {
+        "AdHocFilteringOption": {
+            "AvailabilityStatus": "DISABLED"
+        },
+        "ExportToCSVOption": {
+            "AvailabilityStatus": "ENABLED"
+        },
+        "SheetControlsOption": {
+            "VisibilityState": "EXPANDED"
+        }
+    }
+}
